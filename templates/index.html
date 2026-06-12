@@ -21,11 +21,48 @@
             AI-Powered Resume Ranking & Skill Gap Analysis
         </p>
 
-        <button>
-            Get Started
-        </button>
-
     </div>
+
+    <section class="upload-section">
+
+        <div class="card">
+
+            <h2>Job Description</h2>
+
+            <textarea
+                placeholder="Paste job description here..."
+            ></textarea>
+
+        </div>
+
+        <div class="card">
+
+            <form action="/upload"
+                  method="POST"
+                  enctype="multipart/form-data">
+
+                <h2>Upload Resume</h2>
+
+                <input
+                    type="file"
+                    name="resume"
+                    accept=".pdf"
+                    required
+                >
+
+                <button
+                    type="submit"
+                    class="analyze-btn">
+
+                    Analyze Resume
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
 
 </body>
 </html>
