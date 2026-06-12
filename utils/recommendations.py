@@ -1,0 +1,60 @@
+def generate_recommendations(
+    missing_skills
+):
+
+    recommendations = []
+
+    skill_recommendations = {
+
+        "python":
+        "Improve Python programming and problem-solving skills.",
+
+        "sql":
+        "Practice SQL queries, joins, and database design.",
+
+        "aws":
+        "Learn AWS fundamentals including EC2, S3, and IAM.",
+
+        "docker":
+        "Learn Docker containers and deployment workflows.",
+
+        "kubernetes":
+        "Understand container orchestration using Kubernetes.",
+
+        "machine learning":
+        "Build ML projects and study supervised learning techniques.",
+
+        "deep learning":
+        "Learn neural networks, CNNs, and deep learning frameworks.",
+
+        "tensorflow":
+        "Practice building ML models using TensorFlow.",
+
+        "pytorch":
+        "Learn PyTorch for deep learning applications.",
+
+        "nlp":
+        "Explore Natural Language Processing and text analytics.",
+
+        "react":
+        "Build frontend applications using React.",
+
+        "flask":
+        "Develop backend applications using Flask.",
+
+        "azure":
+        "Explore Azure cloud services and deployment.",
+
+        "power bi":
+        "Create dashboards and data visualizations using Power BI."
+    }
+
+    for skill in missing_skills:
+
+        if skill in skill_recommendations:
+
+            recommendations.append(
+                skill_recommendations[skill]
+            )
+
+    return recommendations

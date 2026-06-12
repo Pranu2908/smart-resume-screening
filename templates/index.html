@@ -37,28 +37,35 @@
 
         <div class="card">
 
-            <form action="/upload"
-                  method="POST"
-                  enctype="multipart/form-data">
+           <form action="/upload" method="POST" enctype="multipart/form-data">
 
-                <h2>Upload Resume</h2>
+    <h2>Job Description</h2>
 
-                <input
-                    type="file"
-                    name="resume"
-                    accept=".pdf"
-                    required
-                >
+    <textarea
+        name="job_description"
+        placeholder="Paste job description here..."
+        required
+    ></textarea>
 
-                <button
-                    type="submit"
-                    class="analyze-btn">
+    <br><br>
 
-                    Analyze Resume
+    <h2>Upload Resume</h2>
 
-                </button>
+    <input
+        type="file"
+        name="resume"
+        accept=".pdf"
+        required
+    >
 
-            </form>
+    <button
+        type="submit"
+        class="analyze-btn"
+    >
+        Analyze Resume
+    </button>
+
+</form>
 
         </div>
 

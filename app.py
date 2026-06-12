@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request
 from utils.pdf_extractor import extract_text_from_pdf
+from utils.skill_extractor import extract_skills
+from utils.resume_matcher import calculate_match_score
+from utils.skill_gap import find_missing_skills
 import os
 
 app = Flask(__name__)
@@ -7,7 +10,6 @@ app = Flask(__name__)
 UPLOAD_FOLDER = "uploads"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-# Create uploads folder if it doesn't exist
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
@@ -19,10 +21,10 @@ def home():
 @app.route("/upload", methods=["POST"])
 def upload():
 
-    # Get uploaded file
+    job_description = request.form["job_description"]
+
     file = request.files["resume"]
 
-    # Save file
     filepath = os.path.join(
         app.config["UPLOAD_FOLDER"],
         file.filename
@@ -30,13 +32,26 @@ def upload():
 
     file.save(filepath)
 
-    # Extract text from PDF
     resume_text = extract_text_from_pdf(filepath)
 
-    # Send extracted text to results page
+    skills = extract_skills(resume_text)
+
+    match_score = calculate_match_score(
+        resume_text,
+        job_description
+    )
+
+    missing_skills = find_missing_skills(
+        skills,
+        job_description
+    )
+
     return render_template(
         "results.html",
-        resume_text=resume_text
+        resume_text=resume_text,
+        skills=skills,
+        match_score=match_score,
+        missing_skills=missing_skills
     )
 
 

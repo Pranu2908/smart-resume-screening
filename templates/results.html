@@ -1,16 +1,210 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Resume Analysis</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Resume Analysis Dashboard</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f5f7fb;
+}
+
+.container{
+    max-width:1300px;
+    margin:auto;
+    padding:40px;
+}
+
+.header{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.header h1{
+    color:#2563eb;
+    margin-bottom:10px;
+}
+
+.dashboard{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(300px,1fr));
+
+    gap:25px;
+
+    margin-bottom:30px;
+}
+
+.card{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.08);
+}
+
+.score{
+
+    font-size:60px;
+
+    font-weight:bold;
+
+    color:#2563eb;
+
+    margin-top:20px;
+}
+
+.skills{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-top:20px;
+}
+
+.skill{
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:10px 15px;
+
+    border-radius:20px;
+
+    font-size:14px;
+}
+
+.missing{
+
+    background:#ef4444;
+}
+
+.resume-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.08);
+}
+
+pre{
+
+    margin-top:20px;
+
+    white-space:pre-wrap;
+
+    line-height:1.6;
+}
+
+</style>
+
 </head>
 
 <body>
 
-    <h1>Extracted Resume Text</h1>
+<div class="container">
 
-    <pre>
-{{ resume_text }}
-    </pre>
+    <div class="header">
+
+        <h1>Resume Analysis Dashboard</h1>
+
+        <p>
+            AI-Powered Resume Screening System
+        </p>
+
+    </div>
+
+    <div class="dashboard">
+
+        <div class="card">
+
+            <h2>Resume Match Score</h2>
+
+            <div class="score">
+
+                {{ match_score }}%
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Detected Skills</h2>
+
+            <div class="skills">
+
+                {% for skill in skills %}
+
+                <div class="skill">
+
+                    {{ skill }}
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Missing Skills</h2>
+
+            <div class="skills">
+
+                {% for skill in missing_skills %}
+
+                <div class="skill missing">
+
+                    {{ skill }}
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="resume-card">
+
+        <h2>Extracted Resume Text</h2>
+
+        <pre>{{ resume_text }}</pre>
+
+    </div>
+
+</div>
 
 </body>
 </html>
