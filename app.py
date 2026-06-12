@@ -3,6 +3,7 @@ from utils.pdf_extractor import extract_text_from_pdf
 from utils.skill_extractor import extract_skills
 from utils.resume_matcher import calculate_match_score
 from utils.skill_gap import find_missing_skills
+from utils.recommendations import generate_recommendations
 import os
 
 app = Flask(__name__)
@@ -46,12 +47,20 @@ def upload():
         job_description
     )
 
+    recommendations = generate_recommendations(
+        missing_skills
+    )
+    print("Detected Skills:", skills)
+    print("Missing Skills:", missing_skills)
+    print("Recommendations:", recommendations)
+
     return render_template(
         "results.html",
         resume_text=resume_text,
         skills=skills,
         match_score=match_score,
-        missing_skills=missing_skills
+        missing_skills=missing_skills,
+        recommendations=recommendations
     )
 
 

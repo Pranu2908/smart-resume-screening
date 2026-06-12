@@ -34,9 +34,19 @@ def extract_skills(resume_text):
         "aws",
         "azure",
 
+        "docker",
+        "kubernetes",
+
         "data analysis",
         "power bi",
-        "tableau"
+        "tableau",
+
+        "large language models",
+        "llm",
+        "agentic ai",
+        "agent based workflows",
+        "groq",
+        "langchain"
     ]
 
     found_skills = []
