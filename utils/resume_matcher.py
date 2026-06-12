@@ -1,30 +1,70 @@
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-
-
 def calculate_match_score(
-    resume_text,
+    resume_skills,
     job_description
 ):
 
-    documents = [
-        resume_text,
-        job_description
+    skill_database = [
+
+        "python",
+        "java",
+        "c",
+        "c++",
+        "javascript",
+        "html",
+        "css",
+
+        "sql",
+        "mysql",
+        "mongodb",
+
+        "machine learning",
+        "deep learning",
+        "artificial intelligence",
+        "nlp",
+
+        "tensorflow",
+        "keras",
+        "pytorch",
+        "scikit-learn",
+
+        "flask",
+        "django",
+        "react",
+
+        "git",
+        "github",
+
+        "aws",
+        "azure",
+
+        "docker",
+        "kubernetes",
+
+        "power bi",
+        "tableau"
     ]
 
-    tfidf = TfidfVectorizer()
+    jd_text = job_description.lower()
 
-    tfidf_matrix = tfidf.fit_transform(
-        documents
-    )
+    jd_skills = []
 
-    similarity = cosine_similarity(
-        tfidf_matrix[0:1],
-        tfidf_matrix[1:2]
-    )
+    for skill in skill_database:
+
+        if skill in jd_text:
+            jd_skills.append(skill)
+
+    if len(jd_skills) == 0:
+        return 0
+
+    matched_skills = 0
+
+    for skill in jd_skills:
+
+        if skill in resume_skills:
+            matched_skills += 1
 
     score = round(
-        similarity[0][0] * 100,
+        (matched_skills / len(jd_skills)) * 100,
         2
     )
 

@@ -38,9 +38,9 @@ def upload():
     skills = extract_skills(resume_text)
 
     match_score = calculate_match_score(
-        resume_text,
-        job_description
-    )
+    skills,
+    job_description
+)
 
     missing_skills = find_missing_skills(
         skills,
@@ -50,9 +50,15 @@ def upload():
     recommendations = generate_recommendations(
         missing_skills
     )
-    print("Detected Skills:", skills)
-    print("Missing Skills:", missing_skills)
-    print("Recommendations:", recommendations)
+
+    if match_score >= 75:
+        verdict = "Excellent Match"
+
+    elif match_score >= 50:
+        verdict = "Good Match"
+
+    else:
+        verdict = "Needs Improvement"
 
     return render_template(
         "results.html",
@@ -60,7 +66,8 @@ def upload():
         skills=skills,
         match_score=match_score,
         missing_skills=missing_skills,
-        recommendations=recommendations
+        recommendations=recommendations,
+        verdict=verdict
     )
 
 
