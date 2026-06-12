@@ -8,6 +8,8 @@
 
 <title>Resume Analysis Dashboard</title>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <style>
 
 *{
@@ -161,6 +163,12 @@ body{
     font-size:18px;
 }
 
+.chart-container{
+    width:100%;
+    max-width:350px;
+    margin:auto;
+}
+
 pre{
     white-space:pre-wrap;
     line-height:1.6;
@@ -280,6 +288,16 @@ pre{
 
         </div>
 
+        <div class="card">
+
+            <h2>Skill Analytics</h2>
+
+            <div class="chart-container">
+                <canvas id="skillChart"></canvas>
+            </div>
+
+        </div>
+
     </div>
 
     <div class="resume-card">
@@ -323,6 +341,33 @@ pre{
     </div>
 
 </div>
+
+<script>
+
+const ctx =
+document.getElementById('skillChart');
+
+new Chart(ctx, {
+
+    type:'doughnut',
+
+    data:{
+        labels:[
+            'Matched Skills',
+            'Missing Skills'
+        ],
+
+        datasets:[{
+            data:[
+                {{ matched_skills_count }},
+                {{ missing_skills_count }}
+            ]
+        }]
+    }
+
+});
+
+</script>
 
 </body>
 
