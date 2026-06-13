@@ -39,6 +39,10 @@ body{
     margin-bottom:10px;
 }
 
+.header p{
+    color:#64748b;
+}
+
 .dashboard{
     display:grid;
     grid-template-columns:
@@ -53,6 +57,11 @@ body{
     border-radius:20px;
     box-shadow:
     0 10px 30px rgba(0,0,0,0.08);
+}
+
+.card h2{
+    margin-bottom:20px;
+    color:#1e293b;
 }
 
 .progress-container{
@@ -70,7 +79,7 @@ body{
 }
 
 .score{
-    font-size:48px;
+    font-size:50px;
     color:#2563eb;
     font-weight:bold;
     margin-top:20px;
@@ -116,6 +125,12 @@ body{
     border-radius:10px;
 }
 
+.chart-container{
+    width:100%;
+    max-width:320px;
+    margin:auto;
+}
+
 .resume-card{
     background:white;
     border-radius:20px;
@@ -158,21 +173,26 @@ body{
 
 .resume-details summary{
     cursor:pointer;
+    font-size:18px;
     font-weight:bold;
     color:#2563eb;
-    font-size:18px;
+    margin-bottom:20px;
 }
 
-.chart-container{
-    width:100%;
-    max-width:350px;
-    margin:auto;
+.resume-text{
+    margin-top:20px;
+    background:#f8fafc;
+    padding:25px;
+    border-radius:15px;
+    border:1px solid #e2e8f0;
+    max-height:500px;
+    overflow-y:auto;
 }
 
 pre{
     white-space:pre-wrap;
-    line-height:1.6;
-    margin-top:20px;
+    line-height:1.8;
+    font-size:14px;
 }
 
 </style>
@@ -195,6 +215,8 @@ pre{
 
     <div class="dashboard">
 
+        <!-- MATCH SCORE -->
+
         <div class="card">
 
             <h2>Resume Match Score</h2>
@@ -214,6 +236,8 @@ pre{
 
         </div>
 
+        <!-- VERDICT -->
+
         <div class="card">
 
             <h2>ATS Verdict</h2>
@@ -223,6 +247,8 @@ pre{
             </div>
 
         </div>
+
+        <!-- DETECTED SKILLS -->
 
         <div class="card">
 
@@ -242,6 +268,8 @@ pre{
 
         </div>
 
+        <!-- MISSING SKILLS -->
+
         <div class="card">
 
             <h2>Missing Skills</h2>
@@ -259,6 +287,8 @@ pre{
             </div>
 
         </div>
+
+        <!-- RECOMMENDATIONS -->
 
         <div class="card">
 
@@ -288,17 +318,23 @@ pre{
 
         </div>
 
+        <!-- CHART -->
+
         <div class="card">
 
             <h2>Skill Analytics</h2>
 
             <div class="chart-container">
+
                 <canvas id="skillChart"></canvas>
+
             </div>
 
         </div>
 
     </div>
+
+    <!-- OVERVIEW -->
 
     <div class="resume-card">
 
@@ -307,23 +343,37 @@ pre{
         <div class="overview-grid">
 
             <div class="overview-item">
-                <h3>Skills Detected</h3>
+
+                <h3>Detected Skills</h3>
+
                 <p>{{ skills|length }}</p>
+
             </div>
 
             <div class="overview-item">
+
                 <h3>Missing Skills</h3>
+
                 <p>{{ missing_skills|length }}</p>
+
             </div>
 
             <div class="overview-item">
+
                 <h3>Match Score</h3>
+
                 <p>{{ match_score }}%</p>
+
             </div>
 
             <div class="overview-item">
+
                 <h3>ATS Verdict</h3>
-                <p>{{ verdict }}</p>
+
+                <p style="font-size:18px;">
+                    {{ verdict }}
+                </p>
+
             </div>
 
         </div>
@@ -331,10 +381,14 @@ pre{
         <details class="resume-details">
 
             <summary>
-                View Full Resume
+                View Full Resume Text
             </summary>
 
-            <pre>{{ resume_text }}</pre>
+            <div class="resume-text">
+
+                <pre>{{ resume_text }}</pre>
+
+            </div>
 
         </details>
 
@@ -352,16 +406,19 @@ new Chart(ctx, {
     type:'doughnut',
 
     data:{
+
         labels:[
             'Matched Skills',
             'Missing Skills'
         ],
 
         datasets:[{
+
             data:[
                 {{ matched_skills_count }},
                 {{ missing_skills_count }}
             ]
+
         }]
     }
 
@@ -370,5 +427,4 @@ new Chart(ctx, {
 </script>
 
 </body>
-
 </html>

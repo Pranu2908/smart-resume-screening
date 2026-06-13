@@ -22,10 +22,13 @@ def home():
 @app.route("/upload", methods=["POST"])
 def upload():
 
+    # Get Job Description
     job_description = request.form["job_description"]
 
+    # Get Uploaded Resume
     file = request.files["resume"]
 
+    # Save Resume
     filepath = os.path.join(
         app.config["UPLOAD_FOLDER"],
         file.filename
@@ -33,27 +36,40 @@ def upload():
 
     file.save(filepath)
 
+    # Extract Resume Text
     resume_text = extract_text_from_pdf(filepath)
 
+    # Extract Skills
     skills = extract_skills(resume_text)
 
+    # Match Score
     match_score = calculate_match_score(
         skills,
         job_description
     )
 
+    # Missing Skills
     missing_skills = find_missing_skills(
         skills,
         job_description
     )
 
+    # Recommendations
     recommendations = generate_recommendations(
         missing_skills
     )
 
-    matched_skills_count = len(skills)
+    # Matched Skills Count
+    matched_skills_count = 0
+
+    for skill in skills:
+        if skill not in missing_skills:
+            matched_skills_count += 1
+
+    # Missing Skills Count
     missing_skills_count = len(missing_skills)
 
+    # ATS Verdict
     if match_score >= 75:
         verdict = "Excellent Match"
 
@@ -63,6 +79,7 @@ def upload():
     else:
         verdict = "Needs Improvement"
 
+    # Render Dashboard
     return render_template(
         "results.html",
         resume_text=resume_text,

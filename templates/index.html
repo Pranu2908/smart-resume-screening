@@ -1,75 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Resume Screening</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Smart Resume Screening System
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
 </head>
 
 <body>
 
-    <div class="hero">
+    <section class="hero">
 
         <h1>
             Smart Resume Screening System
         </h1>
 
         <p>
-            AI-Powered Resume Ranking & Skill Gap Analysis
+            AI-Powered Resume Ranking, Skill Gap Analysis,
+            and ATS Evaluation Platform
         </p>
 
-    </div>
+    </section>
 
     <section class="upload-section">
 
         <div class="card">
 
-            <h2>Job Description</h2>
+            <form
+                action="/upload"
+                method="POST"
+                enctype="multipart/form-data"
+            >
 
-            <textarea
-                placeholder="Paste job description here..."
-            ></textarea>
+                <h2>
+                    Job Description
+                </h2>
 
-        </div>
+                <textarea
+                    name="job_description"
+                    placeholder="Paste the Job Description here..."
+                    required
+                ></textarea>
 
-        <div class="card">
+                <h2 class="upload-title">
+                    Upload Resume
+                </h2>
 
-           <form action="/upload" method="POST" enctype="multipart/form-data">
+                <input
+                    type="file"
+                    name="resume"
+                    accept=".pdf"
+                    required
+                >
 
-    <h2>Job Description</h2>
+                <button
+                    type="submit"
+                    class="analyze-btn"
+                >
+                    Analyze Resume
+                </button>
 
-    <textarea
-        name="job_description"
-        placeholder="Paste job description here..."
-        required
-    ></textarea>
-
-    <br><br>
-
-    <h2>Upload Resume</h2>
-
-    <input
-        type="file"
-        name="resume"
-        accept=".pdf"
-        required
-    >
-
-    <button
-        type="submit"
-        class="analyze-btn"
-    >
-        Analyze Resume
-    </button>
-
-</form>
+            </form>
 
         </div>
 
     </section>
 
 </body>
+
 </html>
